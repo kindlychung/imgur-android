@@ -1,5 +1,7 @@
 package akiniyalocts.imgurapiexample.services;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 
 import java.lang.ref.WeakReference;
@@ -22,12 +24,14 @@ import retrofit.mime.TypedFile;
  * Our upload service. This creates our restadapter, uploads our image, and notifies us of the response.
  */
 public class UploadService {
+    public final ClipboardManager clipboard;
     public final static String TAG = UploadService.class.getSimpleName();
 
     private WeakReference<Context> mContext;
 
     public UploadService(Context context) {
         this.mContext = new WeakReference<>(context);
+        clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
     public void Execute(Upload upload, Callback<ImageResponse> callback) {
@@ -67,6 +71,7 @@ public class UploadService {
                         */
                         if (imageResponse.success) {
                             notificationHelper.createUploadedNotification(imageResponse);
+                            clipboard.setPrimaryClip(ClipData.newPlainText("imgurLink", imageResponse.data.link));
                         }
                     }
 
