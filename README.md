@@ -6,6 +6,8 @@
   All API calls are done using <a href="http://square.github.io/retrofit/">Retrofit</a>
 </p>
 
+This is a fork that adds clipboard support, i.e. once the image is uploaded, the link is stored in the clipboard.
+
 <h2>Configuration</h2
 <p>Just about everything you need is setup for you.<br>
 <ul>
